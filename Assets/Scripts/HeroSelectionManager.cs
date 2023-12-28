@@ -85,7 +85,7 @@ public class HeroSelectionManager : MonoBehaviour
         
         if (_isHeroOnScene)
         {
-            FindByName(index);
+            FindByNameOnScene(index);
         }
         else
         {
@@ -166,7 +166,7 @@ public class HeroSelectionManager : MonoBehaviour
         return _heroesOnScene.Any(hero => hero.HeroSettings.Name == _heroesConfigurator.Heroes[index].HeroSettings.Name);
     }
 
-    private void FindByName(int index)
+    private void FindByNameOnScene(int index)
     {
         foreach (var hero in _heroesOnScene)
         {
