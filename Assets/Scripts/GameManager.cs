@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
-    [FormerlySerializedAs("_heroesConfiguration")] [SerializeField] private HeroesConfigurator heroesConfigurator;
+    [SerializeField] private HeroesConfigurator heroesConfigurator;
     [SerializeField] private HeroSelectionManager _heroSelectionManager;
     [SerializeField] private MoneyManager _moneyManager;
     [SerializeField] private LobbyScreen _lobbyScreen;

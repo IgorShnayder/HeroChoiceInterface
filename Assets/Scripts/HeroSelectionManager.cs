@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -79,33 +80,13 @@ public class HeroSelectionManager : MonoBehaviour
         
         if (_heroesOnScene.Count > 1)
         {
-            var any = false;
-            
-            foreach (var hero in _heroesOnScene)
-            {
-                if (hero.HeroSettings.Name == _heroesConfigurator.Heroes[index].HeroSettings.Name)
-                {
-                    any = true;
-                    break;
-                }
-            }
-
-            _isHeroOnScene = any;
+            _isHeroOnScene = FindAnyHeroOnScene(index);
         }
         
         if (_isHeroOnScene)
         {
-            foreach (var hero in _heroesOnScene)
-            {
-                if (hero.HeroSettings.Name != _heroesConfigurator.Heroes[index].HeroSettings.Name) continue;
-                
-                hero.gameObject.SetActive(true);
-                _heroIndex = _heroesOnScene.IndexOf(hero);
-                _hero = hero;
-                break;
-            }
+            FindByName(index);
         }
-        
         else
         {
             _hero = Instantiate(_heroesConfigurator.Heroes[index], _heroPosition);
@@ -154,6 +135,7 @@ public class HeroSelectionManager : MonoBehaviour
     private void SelectHero()
     { 
         HeroSelected?.Invoke(_hero);
+        _lastPurchasedHero = _hero;
         SelectButtonPushed?.Invoke();
     }
 
@@ -161,18 +143,39 @@ public class HeroSelectionManager : MonoBehaviour
     {
         ReturnButtonPushed?.Invoke();
         
-        if (_hero.IsPurchased)
+        if (_lastPurchasedHero != null)
         {
+            var isDifferentName = _lastPurchasedHero.HeroSettings.Name != _hero.HeroSettings.Name;
+            
+            if (isDifferentName)
+            {
+                _hero.gameObject.SetActive(false);
+                _hero = _lastPurchasedHero;
+            }
+            
+            _hero.gameObject.SetActive(true);
             HeroSelected?.Invoke(_hero);
             return;
         }
         
         _hero.gameObject.SetActive(false);
+    }
 
-        if (_lastPurchasedHero == null) return;
-        
-        _hero = _lastPurchasedHero;
-        _hero.gameObject.SetActive(true);
-        HeroSelected?.Invoke(_hero);
+    private bool FindAnyHeroOnScene(int index)
+    {
+        return _heroesOnScene.Any(hero => hero.HeroSettings.Name == _heroesConfigurator.Heroes[index].HeroSettings.Name);
+    }
+
+    private void FindByName(int index)
+    {
+        foreach (var hero in _heroesOnScene)
+        {
+            if (hero.HeroSettings.Name != _heroesConfigurator.Heroes[index].HeroSettings.Name) continue;
+                
+            hero.gameObject.SetActive(true);
+            _heroIndex = _heroesOnScene.IndexOf(hero);
+            _hero = hero;
+            break;
+        }
     }
 }
