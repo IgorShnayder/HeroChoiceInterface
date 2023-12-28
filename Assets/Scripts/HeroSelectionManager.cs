@@ -23,11 +23,11 @@ public class HeroSelectionManager : MonoBehaviour
     private int _heroIndex;
     private MoneyManager _moneyManager;
     private bool _isHeroOnScene;
-    private HeroesConfiguration _heroesConfiguration;
+    private HeroesConfigurator _heroesConfigurator;
     
-    public void Initialize(HeroesConfiguration heroesConfiguration, MoneyManager moneyManager)
+    public void Initialize(HeroesConfigurator heroesConfigurator, MoneyManager moneyManager)
     {
-        _heroesConfiguration = heroesConfiguration;
+        _heroesConfigurator = heroesConfigurator;
         _moneyManager = moneyManager;
         _heroesOnScene = new List<Hero>();
         
@@ -47,6 +47,29 @@ public class HeroSelectionManager : MonoBehaviour
         _returnButton.onClick.RemoveAllListeners();
     }
     
+    public void FillHeroSelectionScreen()
+    {
+        if (_hero != null && !_hero.IsPurchased)
+        {
+            _hero.gameObject.SetActive(true);
+            return;
+        }
+
+        if (_hero != null && _hero.IsPurchased || _heroesConfigurator.Heroes.Count == 0)
+        {
+            _heroIndex = _heroesOnScene.IndexOf(_hero);
+            HeroSwitched?.Invoke(_heroesOnScene[_heroIndex]); 
+            UpdateButtons();
+            IndexChanged?.Invoke(_heroIndex);
+            return;
+        }
+        
+        _hero = Instantiate(_heroesConfigurator.Heroes[0], _heroPosition);
+        _heroesOnScene.Add(_hero);
+        HeroSwitched?.Invoke(_heroesOnScene[0]); 
+        _selectButton.interactable = false;
+    }
+    
     public void SwitchHero(int index)
     {
         if (_hero != null)
@@ -60,7 +83,7 @@ public class HeroSelectionManager : MonoBehaviour
             
             foreach (var hero in _heroesOnScene)
             {
-                if (hero.HeroSettings.Name == _heroesConfiguration.Heroes[index].HeroSettings.Name)
+                if (hero.HeroSettings.Name == _heroesConfigurator.Heroes[index].HeroSettings.Name)
                 {
                     any = true;
                     break;
@@ -74,7 +97,7 @@ public class HeroSelectionManager : MonoBehaviour
         {
             foreach (var hero in _heroesOnScene)
             {
-                if (hero.HeroSettings.Name != _heroesConfiguration.Heroes[index].HeroSettings.Name) continue;
+                if (hero.HeroSettings.Name != _heroesConfigurator.Heroes[index].HeroSettings.Name) continue;
                 
                 hero.gameObject.SetActive(true);
                 _heroIndex = _heroesOnScene.IndexOf(hero);
@@ -85,7 +108,7 @@ public class HeroSelectionManager : MonoBehaviour
         
         else
         {
-            _hero = Instantiate(_heroesConfiguration.Heroes[index], _heroPosition);
+            _hero = Instantiate(_heroesConfigurator.Heroes[index], _heroPosition);
             _heroesOnScene.Add(_hero);
             _heroIndex = _heroesOnScene.IndexOf(_hero);
         }
@@ -96,28 +119,6 @@ public class HeroSelectionManager : MonoBehaviour
         
         _buyButton.gameObject.SetActive(true);
         _buyButton.interactable = true;
-        _selectButton.interactable = false;
-    }
-    
-    public void FillHeroSelectionScreen()
-    {
-        if (_hero != null && !_hero.IsPurchased)
-        {
-            _hero.gameObject.SetActive(true);
-            return;
-        }
-
-        if (_hero != null && _hero.IsPurchased || _heroesConfiguration.Heroes.Count == 0)
-        {
-            _heroIndex = _heroesOnScene.IndexOf(_hero);
-            HeroSwitched?.Invoke(_heroesOnScene[_heroIndex]); 
-            IndexChanged?.Invoke(_heroIndex);
-            return;
-        }
-        
-        _hero = Instantiate(_heroesConfiguration.Heroes[0], _heroPosition);
-        _heroesOnScene.Add(_hero);
-        HeroSwitched?.Invoke(_heroesOnScene[0]); 
         _selectButton.interactable = false;
     }
     

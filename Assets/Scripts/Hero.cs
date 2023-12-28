@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Hero : MonoBehaviour
@@ -7,7 +6,6 @@ public class Hero : MonoBehaviour
     public bool IsPurchased { get; private set; }
 
     [SerializeField] private bool _isPurchasedChek;
-     
     [SerializeField] private HeroSettings _heroSettings;
     
     private void Update()

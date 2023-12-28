@@ -10,13 +10,13 @@ public class HeroSelectionScreen : MonoBehaviour
     private UIScreenChanger _uiScreenChanger;
     private Hero _hero;
     
-    public void Initialize(HeroesConfiguration heroesConfiguration, MoneyManager moneyManager, HeroSelectionManager heroSelectionManager, UIScreenChanger uiScreenChanger)
+    public void Initialize(HeroesConfigurator heroesConfigurator, MoneyManager moneyManager, HeroSelectionManager heroSelectionManager, UIScreenChanger uiScreenChanger)
     {
         _moneyView.Initialize(moneyManager);
         _heroSelectionManager = heroSelectionManager;
         _uiScreenChanger = uiScreenChanger;
         
-        var heroesQuantity = heroesConfiguration.Heroes.Count;
+        var heroesQuantity = heroesConfigurator.Heroes.Count;
         _heroSwitcher.Initialize(heroesQuantity);
         
         _heroSwitcher.SwitchButtonPushed += _heroSelectionManager.SwitchHero;
