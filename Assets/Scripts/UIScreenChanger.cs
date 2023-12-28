@@ -1,17 +1,43 @@
+using System;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIScreenChanger : MonoBehaviour
 {
+    public event Action GoToLobby;
+    public event Action GoToHeroSelection;
+    
     [SerializeField] private CanvasGroup _lobbyInterface;
     [SerializeField] private CanvasGroup _heroSelectionInterface;
+
+    private void Awake()
+    {
+        GoToLobby += SwitchToLobbyInterface;
+        GoToHeroSelection += SwitchToHeroSelectionInterface;
+    }
+
+    private void OnDestroy()
+    {
+        GoToLobby -= SwitchToLobbyInterface;
+        GoToHeroSelection -= SwitchToHeroSelectionInterface;
+    }
+
+    public void ChangeToLobbyScreen()
+    {
+        GoToLobby?.Invoke();
+    }
+
+    public void ChangeToHeroSelectionScreen()
+    {
+        GoToHeroSelection?.Invoke();
+    }
     
-    public void SwitchToLobbyInterface()
+    private void SwitchToLobbyInterface()
     {
         EnableInterface(_lobbyInterface);
         DisableInterface(_heroSelectionInterface);
     }
 
-    public void SwitchToHeroSelectionInterface()
+    private void SwitchToHeroSelectionInterface()
     {
         EnableInterface(_heroSelectionInterface);
         DisableInterface(_lobbyInterface);

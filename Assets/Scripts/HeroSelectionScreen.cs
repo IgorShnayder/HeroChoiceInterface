@@ -1,31 +1,51 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HeroSelectionScreen : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _name;
-    [SerializeField] private TextMeshProUGUI _description;
-    [SerializeField] private Image _classIcon;
-    [SerializeField] private TextMeshProUGUI _levelCounter;
-    [SerializeField] private Slider _experienceCounter;
-    [SerializeField] private TextMeshProUGUI _price;
-    [SerializeField] private Slider _health;
-    [SerializeField] private Slider _attack;
-    [SerializeField] private Slider _defence;
-    [SerializeField] private Slider _speed;
+    [SerializeField] private MoneyView _moneyView;
+    [SerializeField] private HeroParametersView _heroParametersView;
+    [SerializeField] private HeroSwitcher _heroSwitcher;
     
-    public void UpdateHeroSelectionScreen(Hero hero)
+    private HeroSelectionManager _heroSelectionManager;
+    private UIScreenChanger _uiScreenChanger;
+    private Hero _hero;
+    
+    public void Initialize(HeroesConfiguration heroesConfiguration, MoneyManager moneyManager, HeroSelectionManager heroSelectionManager, UIScreenChanger uiScreenChanger)
     {
-        _name.text = hero.HeroSettings.Name;
-        _description.text = hero.HeroSettings.Description;
-        _classIcon.sprite = hero.HeroSettings.HeroClassIcon;
-        _levelCounter.text = hero.HeroSettings.Level.ToString();
-        _experienceCounter.value = hero.HeroSettings.Experience;
-        _price.text = hero.HeroSettings.Price.ToString();
-        _health.value = hero.HeroSettings.Health;
-        _attack.value = hero.HeroSettings.Attack;
-        _defence.value = hero.HeroSettings.Defence;
-        _speed.value = hero.HeroSettings.Speed;
+        _moneyView.Initialize(moneyManager);
+        _heroSelectionManager = heroSelectionManager;
+        _uiScreenChanger = uiScreenChanger;
+        
+        var heroesQuantity = heroesConfiguration.Heroes.Count;
+        _heroSwitcher.Initialize(heroesQuantity);
+        
+        _heroSwitcher.SwitchButtonPushed += _heroSelectionManager.SwitchHero;
+        _heroSelectionManager.IndexChanged += _heroSwitcher.ChangeIndex;
+        _heroSelectionManager.HeroSwitched += UpdateHeroSelectionScreen;
+        _heroSelectionManager.SelectButtonPushed += _uiScreenChanger.ChangeToLobbyScreen;
+        _heroSelectionManager.ReturnButtonPushed += _uiScreenChanger.ChangeToLobbyScreen;
+    }
+    
+    private void OnDestroy()
+    {
+        _heroSwitcher.SwitchButtonPushed -= _heroSelectionManager.SwitchHero;
+        _heroSelectionManager.IndexChanged -= _heroSwitcher.ChangeIndex;
+        _heroSelectionManager.HeroSwitched -= UpdateHeroSelectionScreen;
+        _heroSelectionManager.SelectButtonPushed -= _uiScreenChanger.ChangeToLobbyScreen;
+        _heroSelectionManager.ReturnButtonPushed -= _uiScreenChanger.ChangeToLobbyScreen;
+    }
+
+    private void UpdateHeroSelectionScreen(Hero hero)
+    {
+        _heroParametersView.Name.text = hero.HeroSettings.Name;
+        _heroParametersView.Description.text = hero.HeroSettings.Description;
+        _heroParametersView.ClassIcon.sprite = hero.HeroSettings.HeroClassIcon;
+        _heroParametersView.LevelCounter.text = hero.HeroSettings.Level.ToString();
+        _heroParametersView.ExperienceCounter.value = hero.HeroSettings.Experience;
+        _heroParametersView.Price.text = hero.HeroSettings.Price.ToString();
+        _heroParametersView.Health.value = hero.HeroSettings.Health;
+        _heroParametersView.Attack.value = hero.HeroSettings.Attack;
+        _heroParametersView.Defence.value = hero.HeroSettings.Defence;
+        _heroParametersView.Speed.value = hero.HeroSettings.Speed;
     }
 }

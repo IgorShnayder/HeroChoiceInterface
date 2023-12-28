@@ -11003,6 +11003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0665e405cfd4f46beecd813c3405fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isPurchasedChek: 0
   _heroSettings:
     _name: Legolas
     _description: Range hero with bow, high damage and speed, but weak health and

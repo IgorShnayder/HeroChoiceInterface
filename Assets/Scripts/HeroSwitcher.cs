@@ -36,4 +36,9 @@ public class HeroSwitcher : MonoBehaviour
         
         SwitchButtonPushed?.Invoke(_index);
     }
+
+    public void ChangeIndex(int index)
+    {
+        _index = index;
+    }
 }

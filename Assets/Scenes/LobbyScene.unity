@@ -513,12 +513,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9615f6a7e40a1944a91bd797172f00c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroesManager: {fileID: 1309290372}
+  _heroesConfiguration: {fileID: 1309290372}
   _heroSelectionManager: {fileID: 1759226183}
-  _lobbyScreen: {fileID: 1121088026}
   _moneyManager: {fileID: 1214322470}
-  _moneyViewLobby: {fileID: 1553852567}
-  _moneyViewHeroSelectionScreen: {fileID: 534328861}
+  _lobbyScreen: {fileID: 1121088026}
+  _heroSelectionScreen: {fileID: 322608528}
+  _uiScreenChanger: {fileID: 241797114}
 --- !u!1 &98701402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,8 +1549,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 322608527}
   - {fileID: 1121088025}
+  - {fileID: 322608527}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1950,10 +1950,10 @@ RectTransform:
   m_Father: {fileID: 241797113}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 1, y: 0}
-  m_SizeDelta: {x: 2560, y: 1440}
+  m_SizeDelta: {x: 640, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &322608528
 MonoBehaviour:
@@ -1967,16 +1967,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6f6c18836e5f04898466ec5c39c383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 638908676}
-  _description: {fileID: 1828047597}
-  _classIcon: {fileID: 535717576}
-  _levelCounter: {fileID: 2139298116}
-  _experienceCounter: {fileID: 184146431}
-  _price: {fileID: 461744637}
-  _health: {fileID: 697499249}
-  _attack: {fileID: 814380153}
-  _defence: {fileID: 1182347686}
-  _speed: {fileID: 727594829}
+  _moneyView: {fileID: 534328861}
+  _heroParametersView:
+    Name: {fileID: 638908676}
+    Description: {fileID: 1828047597}
+    ClassIcon: {fileID: 535717576}
+    LevelCounter: {fileID: 2139298116}
+    ExperienceCounter: {fileID: 184146431}
+    Price: {fileID: 461744637}
+    Health: {fileID: 697499249}
+    Attack: {fileID: 814380153}
+    Defence: {fileID: 1182347686}
+    Speed: {fileID: 727594829}
+  _heroSwitcher: {fileID: 1393346134}
 --- !u!225 &322608529
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2078,9 +2081,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1817494916}
+  - {fileID: 1069105456}
   - {fileID: 342812735}
   - {fileID: 1450731990}
-  - {fileID: 1069105456}
   - {fileID: 2000169385}
   m_Father: {fileID: 744978552}
   m_RootOrder: -1
@@ -2197,7 +2200,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1820.0001, y: 980}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395098143
 MonoBehaviour:
@@ -9141,8 +9144,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1, y: 428}
-  m_SizeDelta: {x: 1918, y: 119.77942}
+  m_AnchoredPosition: {x: 1, y: -64}
+  m_SizeDelta: {x: 2054, y: 119.77942}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &775769502
 GameObject:
@@ -9304,31 +9307,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 786284935}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 241797114}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: SwitchToHeroSelectionInterface
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1759226183}
-        m_TargetAssemblyTypeName: HeroSelectionManager, Assembly-CSharp
-        m_MethodName: FillHeroSelectionScreen
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &786284935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11270,7 +11249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.31, y: 3.59}
+  m_AnchoredPosition: {x: -0.876, y: 3.534}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1069105457
@@ -11327,7 +11306,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -11356,7 +11335,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 2.604065, y: 0, z: -62.476837, w: 11.806423}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -11773,19 +11752,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1103012029}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1759226183}
-        m_TargetAssemblyTypeName: HeroSelectionManager, Assembly-CSharp
-        m_MethodName: BuyHero
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
 --- !u!114 &1103012029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11901,10 +11868,10 @@ RectTransform:
   m_Father: {fileID: 241797113}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1121088026
 MonoBehaviour:
@@ -11921,6 +11888,8 @@ MonoBehaviour:
   _heroName: {fileID: 1069105457}
   _heroLevel: {fileID: 1450731991}
   _heroExperience: {fileID: 1817494917}
+  _heroSelectionButton: {fileID: 786284934}
+  _moneyView: {fileID: 1553852567}
 --- !u!225 &1121088027
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -12512,7 +12481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -624, y: -389.00003}
+  m_AnchoredPosition: {x: 291, y: 88}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1289649967
@@ -12710,7 +12679,7 @@ GameObject:
   - component: {fileID: 1309290373}
   - component: {fileID: 1309290372}
   m_Layer: 0
-  m_Name: HeroesManager
+  m_Name: HeroesConfiguration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12728,7 +12697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e7583a82c69ca4f94c09ae2bd71f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroesList:
+  <Heroes>k__BackingField:
   - {fileID: -578485982286550027, guid: 9751d0696c1ee4d8a957f177f49f1806, type: 3}
   - {fileID: 8573929295761078073, guid: 0462945a75b007c459ba1a3bcf18cacc, type: 3}
   - {fileID: -7145783253496587214, guid: e43a414ef8c04124b94fc653e5fd713b, type: 3}
@@ -13858,10 +13827,10 @@ RectTransform:
   m_Father: {fileID: 1121088025}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 882, y: 75}
-  m_SizeDelta: {x: 150, y: 600}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -78, y: 60}
+  m_SizeDelta: {x: 150, y: 704}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1479753612
 MonoBehaviour:
@@ -13881,7 +13850,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -15.8
+  m_Spacing: -111.1
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -14037,7 +14006,7 @@ GameObject:
   - component: {fileID: 1487357514}
   - component: {fileID: 1487357513}
   m_Layer: 5
-  m_Name: MoneyText (TMP)
+  m_Name: 'GoldText '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14468,31 +14437,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1562571282}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1759226183}
-        m_TargetAssemblyTypeName: HeroSelectionManager, Assembly-CSharp
-        m_MethodName: GetHero
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1121088026}
-        m_TargetAssemblyTypeName: LobbyScreen, Assembly-CSharp
-        m_MethodName: UpdateLobbyScreen
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Hero, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1562571282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20712,7 +20657,6 @@ GameObject:
   - component: {fileID: 1744374432}
   - component: {fileID: 1744374431}
   - component: {fileID: 1744374430}
-  - component: {fileID: 1744374429}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -20741,18 +20685,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1744374429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744374427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d811d02ee9fe4b2448717814ffd80fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1744374430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20796,19 +20728,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1744374431}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 241797114}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: SwitchToLobbyInterface
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1744374431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20961,7 +20881,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1818.0001, y: 980}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750393416
 MonoBehaviour:
@@ -21045,11 +20965,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf95dcad815b8e147a56675dad5306e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroSwitcher: {fileID: 1393346134}
-  _heroSelectionScreen: {fileID: 322608528}
   _heroPosition: {fileID: 1632977387}
   _buyButton: {fileID: 1103012028}
   _selectButton: {fileID: 1562571281}
+  _returnButton: {fileID: 1744374430}
 --- !u!1 &1768873330
 GameObject:
   m_ObjectHideFlags: 0
@@ -21281,7 +21200,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 720, y: -381}
+  m_AnchoredPosition: {x: -194, y: 112}
   m_SizeDelta: {x: 340, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1801353870
@@ -28629,6 +28548,30 @@ PrefabInstance:
       propertyPath: m_text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4882015848320512295, guid: 089df3099e381a8408190e2d50fe898d, type: 3}
+      propertyPath: m_margin.w
+      value: 11.806423
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882015848320512295, guid: 089df3099e381a8408190e2d50fe898d, type: 3}
+      propertyPath: m_margin.x
+      value: 2.604065
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882015848320512295, guid: 089df3099e381a8408190e2d50fe898d, type: 3}
+      propertyPath: m_margin.z
+      value: -62.476837
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882015848320512295, guid: 089df3099e381a8408190e2d50fe898d, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639276368370872998, guid: 089df3099e381a8408190e2d50fe898d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.876
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639276368370872998, guid: 089df3099e381a8408190e2d50fe898d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.534
+      objectReference: {fileID: 0}
     - target: {fileID: 7615644198949715540, guid: 089df3099e381a8408190e2d50fe898d, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -28877,11 +28820,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4814251232234178899, guid: 54a899709830ebc40a7c308dc8775494, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -190
+      value: -194
       objectReference: {fileID: 0}
     - target: {fileID: 4814251232234178899, guid: 54a899709830ebc40a7c308dc8775494, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 109
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 4814251232234178899, guid: 54a899709830ebc40a7c308dc8775494, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

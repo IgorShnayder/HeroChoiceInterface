@@ -9,11 +9,12 @@ public class MoneyManager : MonoBehaviour
     
     [SerializeField] private int _playerMoney;
     
-    public void IsMoneyEnough(int price)
+    public void IsMoneyEnough(Hero hero)
     {
-        if (_playerMoney < price) return;
+        if (_playerMoney < hero.HeroSettings.Price) return;
         
-        _playerMoney -= price;
+        _playerMoney -= hero.HeroSettings.Price;
+        hero.MarkHero();
         HeroBought?.Invoke();
         PlayerMoneyChanged?.Invoke(_playerMoney);
     }
