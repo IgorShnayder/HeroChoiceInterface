@@ -1,181 +1,154 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HeroSelectionManager : MonoBehaviour
 {
+    public Hero CurrentHero { get; private set; }
+    public Hero LastSelectedHero { get; private set; }
+    
     public event Action<Hero> HeroSwitched;
     public event Action<Hero> HeroSelected;
-    public event Action<Hero> BuyButtonPushed;
+    public event Action HeroPurchased;
     public event Action SelectButtonPushed;
-    public event Action ReturnButtonPushed;
-    public event Action<int> IndexChanged;
+    public event Action ShowSelectButton;
+    public event Action ShowBuyButton;
     
     [SerializeField] private Transform _heroPosition;
-    [SerializeField] private Button _buyButton;
-    [SerializeField] private Button _selectButton;
-    [SerializeField] private Button _returnButton;
     
-    private List<Hero> _heroesOnScene;
-    private Hero _hero;
-    private Hero _lastPurchasedHero;
-    private int _heroIndex;
+    private int _currentHeroIndex;
+    private int _heroesQuantity;
+    private Hero[] _heroesPull;
+    private int _lastSelectedHeroIndex;
     private MoneyManager _moneyManager;
-    private bool _isHeroOnScene;
     private HeroesConfigurator _heroesConfigurator;
     
     public void Initialize(HeroesConfigurator heroesConfigurator, MoneyManager moneyManager)
     {
         _heroesConfigurator = heroesConfigurator;
         _moneyManager = moneyManager;
-        _heroesOnScene = new List<Hero>();
-        
-        BuyButtonPushed += _moneyManager.IsMoneyEnough;
-        _moneyManager.HeroBought += UpdateButtons;
-        _buyButton.onClick.AddListener(BuyHero);
-        _selectButton.onClick.AddListener(SelectHero);
-        _returnButton.onClick.AddListener(PushReturnButton);
+        _heroesPull = new Hero[heroesConfigurator.Heroes.Count];
+        _heroesQuantity = heroesConfigurator.Heroes.Count;
+    }
+
+    private void SwitchHero(int index)
+    {
+        if (CurrentHero != null)
+        {
+            CurrentHero.gameObject.SetActive(false);
+        }
+
+        TryActivateHero(index);
     }
     
-    private void OnDestroy()
+    private void TryActivateHero(int index)
     {
-        BuyButtonPushed -= _moneyManager.IsMoneyEnough;
-        _moneyManager.HeroBought -= UpdateButtons;
-        _buyButton.onClick.RemoveAllListeners();
-        _selectButton.onClick.RemoveAllListeners();
-        _returnButton.onClick.RemoveAllListeners();
+        //var isHeroNotNull = _heroesPull[index] != null;
+        //var isHeroOnScene = _heroesPull[index].IsHeroOnScene;
+        
+        if (_heroesPull[index] != null && _heroesPull[index].IsHeroOnScene)
+        {
+            CurrentHero = _heroesPull[index];
+        }
+        else
+        {
+            InstantiateHero(index);
+        }
+        
+        CurrentHero.gameObject.SetActive(true);
+        HeroSwitched?.Invoke(CurrentHero);
+    }
+
+    private void InstantiateHero(int index)
+    {
+        CurrentHero = Instantiate(_heroesConfigurator.Heroes[index], _heroPosition);
+        _heroesPull[index] = CurrentHero;
+        _heroesPull[index].MarkHeroOnScene();
     }
     
     public void FillHeroSelectionScreen()
     {
-        if (_hero != null && !_hero.IsPurchased)
+        if (CurrentHero == null)
         {
-            _hero.gameObject.SetActive(true);
-            return;
-        }
-
-        if (_hero != null && _hero.IsPurchased || _heroesConfigurator.Heroes.Count == 0)
-        {
-            _heroIndex = _heroesOnScene.IndexOf(_hero);
-            HeroSwitched?.Invoke(_heroesOnScene[_heroIndex]); 
-            UpdateButtons();
-            IndexChanged?.Invoke(_heroIndex);
+            FillScreenForFirstTime();
             return;
         }
         
-        _hero = Instantiate(_heroesConfigurator.Heroes[0], _heroPosition);
-        _heroesOnScene.Add(_hero);
-        HeroSwitched?.Invoke(_heroesOnScene[0]); 
-        _selectButton.interactable = false;
-    }
-    
-    public void SwitchHero(int index)
-    {
-        if (_hero != null)
-        {
-            _hero.gameObject.SetActive(false);
-        }
-        
-        if (_heroesOnScene.Count > 1)
-        {
-            _isHeroOnScene = FindAnyHeroOnScene(index);
-        }
-        
-        if (_isHeroOnScene)
-        {
-            FindByNameOnScene(index);
-        }
-        else
-        {
-            _hero = Instantiate(_heroesConfigurator.Heroes[index], _heroPosition);
-            _heroesOnScene.Add(_hero);
-            _heroIndex = _heroesOnScene.IndexOf(_hero);
-        }
-        
-        HeroSwitched?.Invoke(_heroesOnScene[_heroIndex]);
+        CurrentHero.gameObject.SetActive(true);
+        HeroSwitched?.Invoke(CurrentHero);
 
-        if (IsHeroAlreadyPurchased()) return;
-        
-        _buyButton.gameObject.SetActive(true);
-        _buyButton.interactable = true;
-        _selectButton.interactable = false;
-    }
-    
-    private void BuyHero()
-    {
-        BuyButtonPushed?.Invoke(_hero);
-
-        if (_hero.IsPurchased)
+        if (CurrentHero.IsPurchased)
         {
-            _lastPurchasedHero = _hero;
+            ShowSelectButton?.Invoke();
         }
+    }
 
-        IsHeroAlreadyPurchased();
+    private void FillScreenForFirstTime()
+    {
+        CurrentHero = Instantiate(_heroesConfigurator.Heroes[0], _heroPosition);
+        _heroesPull[0] = CurrentHero;
+        _heroesPull[0].MarkHeroOnScene(); 
+            
+        CurrentHero.gameObject.SetActive(true);
+        HeroSwitched?.Invoke(CurrentHero); 
+        ShowBuyButton?.Invoke();
     }
     
-    private bool IsHeroAlreadyPurchased()
+    public void TryBuyHero()
     {
-        var isBought = _heroesOnScene[_heroIndex].IsPurchased;
+        var price = CurrentHero.HeroSettings.Price;
 
-        if (!isBought) return false;
+        if (!_moneyManager.TryPurchase(price)) return;
         
-        UpdateButtons();
-        return true;
+        _heroesPull[_currentHeroIndex].MarkHeroPurchased();
+        HeroPurchased?.Invoke();
     }
     
-    private void UpdateButtons()
+    public bool IsHeroAlreadyPurchased()
     {
-        _buyButton.interactable = false;
-        _buyButton.gameObject.SetActive(false);
-        _selectButton.interactable = true;
+        var isBought = _heroesPull[_currentHeroIndex].IsPurchased;
+        return isBought;
     }
     
-    private void SelectHero()
+    public void ChooseNextHero()
+    {
+        _currentHeroIndex++;
+
+        if (_currentHeroIndex == _heroesQuantity)
+        {
+            _currentHeroIndex = 0;
+        }
+        
+        SwitchHero(_currentHeroIndex);
+    }
+
+    public void ChoosePreviousHero()
+    {
+        _currentHeroIndex--;
+        
+        if (_currentHeroIndex < 0)
+        {
+            _currentHeroIndex = _heroesQuantity - 1;
+        }
+        
+        SwitchHero(_currentHeroIndex);
+    }
+    
+    public void SelectHero()
     { 
-        HeroSelected?.Invoke(_hero);
-        _lastPurchasedHero = _hero;
+        LastSelectedHero = CurrentHero;
+        _lastSelectedHeroIndex = _currentHeroIndex;
+        
+        HeroSelected?.Invoke(LastSelectedHero);
         SelectButtonPushed?.Invoke();
     }
 
-    private void PushReturnButton()
+    public void HandOverSelectedHero()
     {
-        ReturnButtonPushed?.Invoke();
+        CurrentHero.gameObject.SetActive(false);
+        CurrentHero = LastSelectedHero;
+        _currentHeroIndex = _lastSelectedHeroIndex;
+        CurrentHero.gameObject.SetActive(true);
         
-        if (_lastPurchasedHero != null)
-        {
-            var isDifferentName = _lastPurchasedHero.HeroSettings.Name != _hero.HeroSettings.Name;
-            
-            if (isDifferentName)
-            {
-                _hero.gameObject.SetActive(false);
-                _hero = _lastPurchasedHero;
-            }
-            
-            _hero.gameObject.SetActive(true);
-            HeroSelected?.Invoke(_hero);
-            return;
-        }
-        
-        _hero.gameObject.SetActive(false);
-    }
-
-    private bool FindAnyHeroOnScene(int index)
-    {
-        return _heroesOnScene.Any(hero => hero.HeroSettings.Name == _heroesConfigurator.Heroes[index].HeroSettings.Name);
-    }
-
-    private void FindByNameOnScene(int index)
-    {
-        foreach (var hero in _heroesOnScene)
-        {
-            if (hero.HeroSettings.Name != _heroesConfigurator.Heroes[index].HeroSettings.Name) continue;
-                
-            hero.gameObject.SetActive(true);
-            _heroIndex = _heroesOnScene.IndexOf(hero);
-            _hero = hero;
-            break;
-        }
+        HeroSelected?.Invoke(CurrentHero);
     }
 }

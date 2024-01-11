@@ -263,7 +263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4630395971456208431
 Transform:
   m_ObjectHideFlags: 0
@@ -370,17 +370,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroSettings:
-    _name: Wolfhound
-    _description: Hero without weapon, but with average health and speed, good defense 
-      and normal attack
-    _heroClassIcon: {fileID: 21300000, guid: 169d45648e00348038299fc345aa6b4f, type: 3}
-    _level: 2
-    _experience: 194
-    _price: 3000
-    _health: 48
-    _attack: 35
-    _defence: 56
-    _speed: 48
+    <Name>k__BackingField: Wolfhound
+    <Description>k__BackingField: Hero without weapon, but with average health and
+      speed, good defense  and normal attack.
+    <HeroClassIcon>k__BackingField: {fileID: 21300000, guid: 169d45648e00348038299fc345aa6b4f, type: 3}
+    <Level>k__BackingField: 2
+    <Experience>k__BackingField: 194
+    <Price>k__BackingField: 3000
+    <Health>k__BackingField: 48
+    <Attack>k__BackingField: 35
+    <Defence>k__BackingField: 56
+    <Speed>k__BackingField: 48
 --- !u!1 &4631967629009302705
 GameObject:
   m_ObjectHideFlags: 0

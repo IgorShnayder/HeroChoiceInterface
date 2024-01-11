@@ -12178,7 +12178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4736350825704954
 Transform:
   m_ObjectHideFlags: 0
@@ -12285,17 +12285,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroSettings:
-    _name: Gendalf
-    _description: Powerful hero who skillfully wields magic. Weak health and defence,
-      average speed and huge damage dealler
-    _heroClassIcon: {fileID: 21300000, guid: 1f75d46fd305144cdb45d27034ef7382, type: 3}
-    _level: 5
-    _experience: 239
-    _price: 21000
-    _health: 35
-    _attack: 74
-    _defence: 20
-    _speed: 48
+    <Name>k__BackingField: Gendalf
+    <Description>k__BackingField: Powerful hero who skillfully wields magic. Weak
+      health and defence, average speed and huge damage dealler.
+    <HeroClassIcon>k__BackingField: {fileID: 21300000, guid: 1f75d46fd305144cdb45d27034ef7382, type: 3}
+    <Level>k__BackingField: 5
+    <Experience>k__BackingField: 239
+    <Price>k__BackingField: 21000
+    <Health>k__BackingField: 35
+    <Attack>k__BackingField: 74
+    <Defence>k__BackingField: 20
+    <Speed>k__BackingField: 48
 --- !u!1 &1973779820340038
 GameObject:
   m_ObjectHideFlags: 0

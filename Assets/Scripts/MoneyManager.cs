@@ -1,21 +1,36 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    public event Action<int> PlayerMoneyChanged;
-    public event Action HeroBought;
-    public int PlayerMoney => _playerMoney;
+    [field: SerializeField] public int PlayerMoney { get; private set; }
+    [SerializeField] private List<MoneyView> _moneyViews;
     
-    [SerializeField] private int _playerMoney;
-    
-    public void IsMoneyEnough(Hero hero)
+    private void Awake()
     {
-        if (_playerMoney < hero.HeroSettings.Price) return;
-        
-        _playerMoney -= hero.HeroSettings.Price;
-        hero.MarkHero();
-        HeroBought?.Invoke();
-        PlayerMoneyChanged?.Invoke(_playerMoney);
+        foreach (var moneyView in _moneyViews)
+        {
+            moneyView.Initialize(PlayerMoney);
+        }
+    }
+
+    public bool TryPurchase(int price)
+    {
+        if (PlayerMoney >= price)
+        {
+            PlayerMoney -= price;
+            UpdateMoneyViews(PlayerMoney);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void UpdateMoneyViews(int money)
+    {
+        foreach (var moneyView in _moneyViews)
+        {
+            moneyView.UpdateMoneyView(money);
+        }
     }
 }

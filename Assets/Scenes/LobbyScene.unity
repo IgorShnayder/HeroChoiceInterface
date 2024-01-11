@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9615f6a7e40a1944a91bd797172f00c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroesConfiguration: {fileID: 1309290372}
+  _heroesConfigurator: {fileID: 1309290372}
   _heroSelectionManager: {fileID: 1759226183}
   _moneyManager: {fileID: 1214322470}
   _lobbyScreen: {fileID: 1121088026}
@@ -1967,7 +1967,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6f6c18836e5f04898466ec5c39c383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moneyView: {fileID: 534328861}
   _heroParametersView:
     Name: {fileID: 638908676}
     Description: {fileID: 1828047597}
@@ -1979,7 +1978,9 @@ MonoBehaviour:
     Attack: {fileID: 814380153}
     Defence: {fileID: 1182347686}
     Speed: {fileID: 727594829}
-  _heroSwitcher: {fileID: 1393346134}
+  _buyButton: {fileID: 1103012028}
+  _selectButton: {fileID: 1562571281}
+  _returnButton: {fileID: 1744374430}
 --- !u!225 &322608529
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7467,7 +7468,7 @@ GameObject:
   - component: {fileID: 534328859}
   - component: {fileID: 534328861}
   m_Layer: 5
-  m_Name: GoldCounter
+  m_Name: HeroSelectionGoldCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11088,9 +11089,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393346134}
-        m_TargetAssemblyTypeName: HeroSwitcher, Assembly-CSharp
-        m_MethodName: IncreaseHeroIndex
+      - m_Target: {fileID: 1759226183}
+        m_TargetAssemblyTypeName: HeroSelectionManager, Assembly-CSharp
+        m_MethodName: ChooseNextHero
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11644,7 +11645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -11889,7 +11890,6 @@ MonoBehaviour:
   _heroLevel: {fileID: 1450731991}
   _heroExperience: {fileID: 1817494917}
   _heroSelectionButton: {fileID: 786284934}
-  _moneyView: {fileID: 1553852567}
 --- !u!225 &1121088027
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -12110,7 +12110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d8ea1ed24daed4abc0f7664aa1d6d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMoney: 60000
+  <PlayerMoney>k__BackingField: 99999
+  _moneyViews:
+  - {fileID: 1553852567}
+  - {fileID: 534328861}
 --- !u!1 &1234372626
 GameObject:
   m_ObjectHideFlags: 0
@@ -12318,9 +12321,9 @@ RectTransform:
   m_Father: {fileID: 184146430}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 51, y: -1.8}
+  m_AnchorMin: {x: 0.485, y: 0.5}
+  m_AnchorMax: {x: 0.485, y: 0.5}
+  m_AnchoredPosition: {x: -250, y: -1.8}
   m_SizeDelta: {x: 90, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1242066616
@@ -12337,7 +12340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -13263,7 +13266,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1393346131}
   - component: {fileID: 1393346133}
-  - component: {fileID: 1393346134}
   m_Layer: 5
   m_Name: SwitchButtons
   m_TagString: Untagged
@@ -13319,18 +13321,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1393346134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393346130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97e86bcee80e10a4a8b4e901bcbaea6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1412040099
 GameObject:
   m_ObjectHideFlags: 0
@@ -14297,7 +14287,7 @@ GameObject:
   - component: {fileID: 1553852565}
   - component: {fileID: 1553852567}
   m_Layer: 5
-  m_Name: GoldCounter
+  m_Name: LobbyGoldCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20595,9 +20585,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393346134}
-        m_TargetAssemblyTypeName: HeroSwitcher, Assembly-CSharp
-        m_MethodName: DecreaseHeroIndex
+      - m_Target: {fileID: 1759226183}
+        m_TargetAssemblyTypeName: HeroSelectionManager, Assembly-CSharp
+        m_MethodName: ChoosePreviousHero
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20966,9 +20956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroPosition: {fileID: 1632977387}
-  _buyButton: {fileID: 1103012028}
-  _selectButton: {fileID: 1562571281}
-  _returnButton: {fileID: 1744374430}
 --- !u!1 &1768873330
 GameObject:
   m_ObjectHideFlags: 0
@@ -21619,7 +21606,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1466465058}
   m_FillRect: {fileID: 1466465060}
-  m_HandleRect: {fileID: 0}
+  m_HandleRect: {fileID: 342812735}
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 400
@@ -28328,7 +28315,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3203968575199469890, guid: 25136cc9a6e24f7409b192a84644dfbe, type: 3}
       propertyPath: m_Name
-      value: GoldCounter
+      value: LobbyGoldCounter
       objectReference: {fileID: 0}
     - target: {fileID: 5401964257582684327, guid: 25136cc9a6e24f7409b192a84644dfbe, type: 3}
       propertyPath: m_text

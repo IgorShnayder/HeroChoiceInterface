@@ -11003,19 +11003,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0665e405cfd4f46beecd813c3405fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPurchasedChek: 0
   _heroSettings:
-    _name: Legolas
-    _description: Range hero with bow, high damage and speed, but weak health and
-      defence
-    _heroClassIcon: {fileID: 21300000, guid: cba6fba15682e49cdab63583abb7be7c, type: 3}
-    _level: 1
-    _experience: 289
-    _price: 5000
-    _health: 32
-    _attack: 36
-    _defence: 25
-    _speed: 70
+    <Name>k__BackingField: Legolas
+    <Description>k__BackingField: Range hero with bow, high damage and huge speed,
+      but weak health and defence.
+    <HeroClassIcon>k__BackingField: {fileID: 21300000, guid: cba6fba15682e49cdab63583abb7be7c, type: 3}
+    <Level>k__BackingField: 1
+    <Experience>k__BackingField: 289
+    <Price>k__BackingField: 5000
+    <Health>k__BackingField: 32
+    <Attack>k__BackingField: 38
+    <Defence>k__BackingField: 25
+    <Speed>k__BackingField: 70
 --- !u!1 &1920731997030702
 GameObject:
   m_ObjectHideFlags: 0

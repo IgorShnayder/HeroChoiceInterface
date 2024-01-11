@@ -10430,17 +10430,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroSettings:
-    _name: Knight
-    _description: 'Armored warrior hero with twohands sword. Huge damage, average
-      health and defence, speed less average. '
-    _heroClassIcon: {fileID: 21300000, guid: 169d45648e00348038299fc345aa6b4f, type: 3}
-    _level: 6
-    _experience: 183
-    _price: 20000
-    _health: 65
-    _attack: 68
-    _defence: 53
-    _speed: 45
+    <Name>k__BackingField: Knight
+    <Description>k__BackingField: 'Armored warrior hero with twohands sword. Huge
+      damage, average health and defence, speed less average. '
+    <HeroClassIcon>k__BackingField: {fileID: 21300000, guid: 169d45648e00348038299fc345aa6b4f, type: 3}
+    <Level>k__BackingField: 6
+    <Experience>k__BackingField: 183
+    <Price>k__BackingField: 20000
+    <Health>k__BackingField: 65
+    <Attack>k__BackingField: 68
+    <Defence>k__BackingField: 53
+    <Speed>k__BackingField: 45
 --- !u!1 &1801486331746464
 GameObject:
   m_ObjectHideFlags: 0

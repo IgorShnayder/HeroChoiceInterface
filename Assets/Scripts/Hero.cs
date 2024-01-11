@@ -4,17 +4,18 @@ public class Hero : MonoBehaviour
 {
     public HeroSettings HeroSettings => _heroSettings;
     public bool IsPurchased { get; private set; }
-
-    [SerializeField] private bool _isPurchasedChek;
+    public bool IsHeroOnScene { get; private set; }
+    
     [SerializeField] private HeroSettings _heroSettings;
     
-    private void Update()
-    {
-        _isPurchasedChek = IsPurchased;
-    }
-    
-    public void MarkHero()
+    public void MarkHeroPurchased()
     {
         IsPurchased = true;
     }
+
+    public void MarkHeroOnScene()
+    {
+        IsHeroOnScene = true;
+    }
+    
 }

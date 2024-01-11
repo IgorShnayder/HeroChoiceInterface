@@ -1252,7 +1252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4802723580168454
 Transform:
   m_ObjectHideFlags: 0
@@ -1359,17 +1359,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroSettings:
-    _name: Defender
-    _description: 'Warrior hero with sword and shield. Huge health and defence, but
-      low damage and speed. '
-    _heroClassIcon: {fileID: 21300000, guid: 798678391569249ab82c838b946c24ae, type: 3}
-    _level: 5
-    _experience: 385
-    _price: 15000
-    _health: 75
-    _attack: 35
-    _defence: 70
-    _speed: 35
+    <Name>k__BackingField: Defender
+    <Description>k__BackingField: Warrior hero with sword and shield. Huge health
+      and defence, but low damage and speed.
+    <HeroClassIcon>k__BackingField: {fileID: 21300000, guid: 798678391569249ab82c838b946c24ae, type: 3}
+    <Level>k__BackingField: 5
+    <Experience>k__BackingField: 385
+    <Price>k__BackingField: 15000
+    <Health>k__BackingField: 75
+    <Attack>k__BackingField: 35
+    <Defence>k__BackingField: 70
+    <Speed>k__BackingField: 35
 --- !u!1 &1129380944076356
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,41 +3,41 @@ using UnityEngine;
 
 public class UIScreenChanger : MonoBehaviour
 {
-    public event Action GoToLobby;
-    public event Action GoToHeroSelection;
+    public event Action SwitchToLobbyScreen;
+    public event Action SwitchToHeroSelectionScreen;
     
     [SerializeField] private CanvasGroup _lobbyInterface;
     [SerializeField] private CanvasGroup _heroSelectionInterface;
 
     private void Awake()
     {
-        GoToLobby += SwitchToLobbyInterface;
-        GoToHeroSelection += SwitchToHeroSelectionInterface;
+        SwitchToLobbyScreen += SwitchToLobbyScreenInterface;
+        SwitchToHeroSelectionScreen += SwitchToHeroSelectionScreenInterface;
     }
 
     private void OnDestroy()
     {
-        GoToLobby -= SwitchToLobbyInterface;
-        GoToHeroSelection -= SwitchToHeroSelectionInterface;
+        SwitchToLobbyScreen -= SwitchToLobbyScreenInterface;
+        SwitchToHeroSelectionScreen -= SwitchToHeroSelectionScreenInterface;
     }
 
     public void ChangeToLobbyScreen()
     {
-        GoToLobby?.Invoke();
+        SwitchToLobbyScreen?.Invoke();
     }
 
     public void ChangeToHeroSelectionScreen()
     {
-        GoToHeroSelection?.Invoke();
+        SwitchToHeroSelectionScreen?.Invoke();
     }
     
-    private void SwitchToLobbyInterface()
+    private void SwitchToLobbyScreenInterface()
     {
         EnableInterface(_lobbyInterface);
         DisableInterface(_heroSelectionInterface);
     }
 
-    private void SwitchToHeroSelectionInterface()
+    private void SwitchToHeroSelectionScreenInterface()
     {
         EnableInterface(_heroSelectionInterface);
         DisableInterface(_lobbyInterface);

@@ -9,17 +9,15 @@ public class LobbyScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _heroLevel;
     [SerializeField] private Slider _heroExperience;
     [SerializeField] private Button _heroSelectionButton;
-    [SerializeField] private MoneyView _moneyView;
 
     private HeroSelectionManager _heroSelectionManager;
     private UIScreenChanger _uiScreenChanger;
     
-    public void Initialize(MoneyManager moneyManager, HeroSelectionManager heroSelectionManager, UIScreenChanger uiScreenChanger)
+    public void Initialize(HeroSelectionManager heroSelectionManager, UIScreenChanger uiScreenChanger)
     {
-        _moneyView.Initialize(moneyManager);
         _heroSelectionManager = heroSelectionManager;
         _uiScreenChanger = uiScreenChanger;
-        _uiScreenChanger.GoToHeroSelection += _heroSelectionManager.FillHeroSelectionScreen;
+        _uiScreenChanger.SwitchToHeroSelectionScreen += _heroSelectionManager.FillHeroSelectionScreen;
         _heroSelectionManager.HeroSelected += UpdateHeroInformation;
     }
     
@@ -30,7 +28,7 @@ public class LobbyScreen : MonoBehaviour
 
     private void OnDestroy()
     {
-        _uiScreenChanger.GoToHeroSelection -= _heroSelectionManager.FillHeroSelectionScreen;
+        _uiScreenChanger.SwitchToHeroSelectionScreen -= _heroSelectionManager.FillHeroSelectionScreen;
         _heroSelectionManager.HeroSelected -= UpdateHeroInformation;
         _heroSelectionButton.onClick.RemoveAllListeners();
     }

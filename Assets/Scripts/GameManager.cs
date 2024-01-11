@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private HeroesConfigurator heroesConfigurator;
+    [SerializeField] private HeroesConfigurator _heroesConfigurator;
     [SerializeField] private HeroSelectionManager _heroSelectionManager;
     [SerializeField] private MoneyManager _moneyManager;
     [SerializeField] private LobbyScreen _lobbyScreen;
@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     
     private void Awake()
     { 
-        _heroSelectionManager.Initialize(heroesConfigurator, _moneyManager);
-        _lobbyScreen.Initialize(_moneyManager, _heroSelectionManager, _uiScreenChanger);
-        _heroSelectionScreen.Initialize(heroesConfigurator, _moneyManager, _heroSelectionManager, _uiScreenChanger);
+        _heroSelectionManager.Initialize(_heroesConfigurator, _moneyManager);
+        _lobbyScreen.Initialize(_heroSelectionManager, _uiScreenChanger);
+        _heroSelectionScreen.Initialize(_heroSelectionManager, _uiScreenChanger);
     }
 }

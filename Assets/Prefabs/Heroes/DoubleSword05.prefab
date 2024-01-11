@@ -11754,7 +11754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4898695792458526
 Transform:
   m_ObjectHideFlags: 0
@@ -11861,17 +11861,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroSettings:
-    _name: Drizzt Do'Urden
-    _description: Melle hero with two sword, high damage and high health, average
-      speed and low defence
-    _heroClassIcon: {fileID: 21300000, guid: 455d317bd36c5444483f77940660f34b, type: 3}
-    _level: 3
-    _experience: 360
-    _price: 10000
-    _health: 60
-    _attack: 58
-    _defence: 35
-    _speed: 54
+    <Name>k__BackingField: Drizzt Do'Urden
+    <Description>k__BackingField: Melle hero with two sword, high damage and high
+      health, average speed and low defence.
+    <HeroClassIcon>k__BackingField: {fileID: 21300000, guid: 455d317bd36c5444483f77940660f34b, type: 3}
+    <Level>k__BackingField: 3
+    <Experience>k__BackingField: 360
+    <Price>k__BackingField: 10000
+    <Health>k__BackingField: 60
+    <Attack>k__BackingField: 58
+    <Defence>k__BackingField: 35
+    <Speed>k__BackingField: 54
 --- !u!1 &1940262280019192
 GameObject:
   m_ObjectHideFlags: 0
