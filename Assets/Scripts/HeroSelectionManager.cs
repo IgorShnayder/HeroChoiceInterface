@@ -42,9 +42,6 @@ public class HeroSelectionManager : MonoBehaviour
     
     private void TryActivateHero(int index)
     {
-        //var isHeroNotNull = _heroesPull[index] != null;
-        //var isHeroOnScene = _heroesPull[index].IsHeroOnScene;
-        
         if (_heroesPull[index] != null && _heroesPull[index].IsHeroOnScene)
         {
             CurrentHero = _heroesPull[index];
