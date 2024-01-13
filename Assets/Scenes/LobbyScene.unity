@@ -480,7 +480,7 @@ GameObject:
   - component: {fileID: 93208831}
   - component: {fileID: 93208832}
   m_Layer: 0
-  m_Name: LobbyManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,8 +513,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9615f6a7e40a1944a91bd797172f00c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroesConfigurator: {fileID: 1309290372}
+  _heroesPrefabManager: {fileID: 1309290374}
   _heroSelectionManager: {fileID: 1759226183}
+  _moneyView: {fileID: 1625391570}
   _moneyManager: {fileID: 1214322470}
   _lobbyScreen: {fileID: 1121088026}
   _heroSelectionScreen: {fileID: 322608528}
@@ -531,7 +532,7 @@ GameObject:
   - component: {fileID: 98701405}
   - component: {fileID: 98701404}
   m_Layer: 5
-  m_Name: 'CounterText '
+  m_Name: 'LobbyGoldCounterText '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1146,6 +1147,7 @@ Transform:
   - {fileID: 93208831}
   - {fileID: 1759226182}
   - {fileID: 1214322469}
+  - {fileID: 1625391569}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7547,7 +7549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372170a2059dad44bab797f4b08bc3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moneyView: {fileID: 1487357514}
+  _moneyViews: []
 --- !u!1 &535717574
 GameObject:
   m_ObjectHideFlags: 0
@@ -12111,9 +12113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PlayerMoney>k__BackingField: 99999
-  _moneyViews:
-  - {fileID: 1553852567}
-  - {fileID: 534328861}
 --- !u!1 &1234372626
 GameObject:
   m_ObjectHideFlags: 0
@@ -12680,15 +12679,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1309290373}
-  - component: {fileID: 1309290372}
+  - component: {fileID: 1309290374}
   m_Layer: 0
-  m_Name: HeroesConfiguration
+  m_Name: HeroesPrefabManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1309290372
+--- !u!4 &1309290373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309290371}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 19.0678, y: 0.13160227, z: 5.3622894}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 198939626}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1309290374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12707,21 +12721,6 @@ MonoBehaviour:
   - {fileID: 7494886007948024107, guid: a9cc8fa955a1bb145ac83117c772c5f7, type: 3}
   - {fileID: -1457052872876719609, guid: e886514e9250e7a418a0dd0bfb9673b1, type: 3}
   - {fileID: 4754103798162319960, guid: 056f556e83717d945b2b7303930ae56c, type: 3}
---- !u!4 &1309290373
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309290371}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.0678, y: 0.13160227, z: 5.3622894}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 198939626}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1311997038
 GameObject:
   m_ObjectHideFlags: 0
@@ -13996,7 +13995,7 @@ GameObject:
   - component: {fileID: 1487357514}
   - component: {fileID: 1487357513}
   m_Layer: 5
-  m_Name: 'GoldText '
+  m_Name: 'HeroSelectionGoldText '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14343,7 +14342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372170a2059dad44bab797f4b08bc3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moneyView: {fileID: 98701404}
+  _moneyViews: []
 --- !u!1 &1562571279
 GameObject:
   m_ObjectHideFlags: 0
@@ -14797,6 +14796,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619569319}
   m_CullTransparentMesh: 1
+--- !u!1 &1625391568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1625391569}
+  - component: {fileID: 1625391570}
+  m_Layer: 0
+  m_Name: MoneyView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1625391569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625391568}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 198939626}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1625391570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625391568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372170a2059dad44bab797f4b08bc3e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneyViews:
+  - {fileID: 98701404}
+  - {fileID: 1487357514}
 --- !u!1 &1632714798
 GameObject:
   m_ObjectHideFlags: 0
@@ -28316,6 +28362,10 @@ PrefabInstance:
     - target: {fileID: 3203968575199469890, guid: 25136cc9a6e24f7409b192a84644dfbe, type: 3}
       propertyPath: m_Name
       value: LobbyGoldCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559264367785081503, guid: 25136cc9a6e24f7409b192a84644dfbe, type: 3}
+      propertyPath: m_Name
+      value: 'LobbyGoldCounterText '
       objectReference: {fileID: 0}
     - target: {fileID: 5401964257582684327, guid: 25136cc9a6e24f7409b192a84644dfbe, type: 3}
       propertyPath: m_text

@@ -19,7 +19,7 @@ public class HeroSelectionScreen : MonoBehaviour
         _heroSelectionManager = heroSelectionManager;
         _uiScreenChanger = uiScreenChanger;
 
-        _heroSelectionManager.HeroSwitched += ShowHero;
+        _heroSelectionManager.HeroSwitched += UpdateHeroInterface;
         _heroSelectionManager.ShowBuyButton += UpdateButtonsForByu;
         _heroSelectionManager.ShowSelectButton += UpdateButtonsForSelect;
         _heroSelectionManager.HeroPurchased += UpdateButtonsForSelect;
@@ -31,7 +31,7 @@ public class HeroSelectionScreen : MonoBehaviour
         _returnButton.onClick.AddListener(PushReturnButton);
     }
 
-    private void ShowHero(Hero hero)
+    private void UpdateHeroInterface(Hero hero)
     {
         UpdateHeroCharacteristics(hero);
         
@@ -87,7 +87,7 @@ public class HeroSelectionScreen : MonoBehaviour
     
     private void OnDestroy()
     {
-        _heroSelectionManager.HeroSwitched -= ShowHero;
+        _heroSelectionManager.HeroSwitched -= UpdateHeroInterface;
         _heroSelectionManager.ShowBuyButton -= UpdateButtonsForByu;
         _heroSelectionManager.ShowSelectButton -= UpdateButtonsForSelect;
         _heroSelectionManager.HeroPurchased -= UpdateButtonsForSelect;

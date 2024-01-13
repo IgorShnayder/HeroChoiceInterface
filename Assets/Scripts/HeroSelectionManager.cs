@@ -17,19 +17,46 @@ public class HeroSelectionManager : MonoBehaviour
     
     private int _currentHeroIndex;
     private int _heroesQuantity;
-    private Hero[] _heroesPull;
+    private Hero[] _heroesPool;
     private int _lastSelectedHeroIndex;
     private MoneyManager _moneyManager;
-    private HeroesConfigurator _heroesConfigurator;
+    private HeroesPrefabManager _heroesPrefabManager;
     
-    public void Initialize(HeroesConfigurator heroesConfigurator, MoneyManager moneyManager)
+    public void Initialize(HeroesPrefabManager heroesPrefabManager, MoneyManager moneyManager)
     {
-        _heroesConfigurator = heroesConfigurator;
+        _heroesPrefabManager = heroesPrefabManager;
         _moneyManager = moneyManager;
-        _heroesPull = new Hero[heroesConfigurator.Heroes.Count];
-        _heroesQuantity = heroesConfigurator.Heroes.Count;
+        var massiveLength = heroesPrefabManager.Heroes.Count;
+        _heroesPool = new Hero[massiveLength];
+        _heroesQuantity = massiveLength;
     }
 
+    public void ShowHero()
+    {
+        if (CurrentHero == null)
+        {
+            ShowHeroForFirstTime();
+            return;
+        }
+        
+        CurrentHero.gameObject.SetActive(true);
+        HeroSwitched?.Invoke(CurrentHero);
+
+        if (CurrentHero.IsPurchased)
+        {
+            ShowSelectButton?.Invoke();
+        }
+    }
+    
+    private void ShowHeroForFirstTime()
+    {
+        InstantiateHero(0);
+            
+        CurrentHero.gameObject.SetActive(true);
+        HeroSwitched?.Invoke(CurrentHero); 
+        ShowBuyButton?.Invoke();
+    }
+    
     private void SwitchHero(int index)
     {
         if (CurrentHero != null)
@@ -42,9 +69,9 @@ public class HeroSelectionManager : MonoBehaviour
     
     private void TryActivateHero(int index)
     {
-        if (_heroesPull[index] != null && _heroesPull[index].IsHeroOnScene)
+        if (_heroesPool[index] != null && _heroesPool[index].IsHeroOnScene)
         {
-            CurrentHero = _heroesPull[index];
+            CurrentHero = _heroesPool[index];
         }
         else
         {
@@ -57,37 +84,9 @@ public class HeroSelectionManager : MonoBehaviour
 
     private void InstantiateHero(int index)
     {
-        CurrentHero = Instantiate(_heroesConfigurator.Heroes[index], _heroPosition);
-        _heroesPull[index] = CurrentHero;
-        _heroesPull[index].MarkHeroOnScene();
-    }
-    
-    public void FillHeroSelectionScreen()
-    {
-        if (CurrentHero == null)
-        {
-            FillScreenForFirstTime();
-            return;
-        }
-        
-        CurrentHero.gameObject.SetActive(true);
-        HeroSwitched?.Invoke(CurrentHero);
-
-        if (CurrentHero.IsPurchased)
-        {
-            ShowSelectButton?.Invoke();
-        }
-    }
-
-    private void FillScreenForFirstTime()
-    {
-        CurrentHero = Instantiate(_heroesConfigurator.Heroes[0], _heroPosition);
-        _heroesPull[0] = CurrentHero;
-        _heroesPull[0].MarkHeroOnScene(); 
-            
-        CurrentHero.gameObject.SetActive(true);
-        HeroSwitched?.Invoke(CurrentHero); 
-        ShowBuyButton?.Invoke();
+        CurrentHero = Instantiate(_heroesPrefabManager.Heroes[index], _heroPosition);
+        _heroesPool[index] = CurrentHero;
+        _heroesPool[index].MarkHeroOnScene();
     }
     
     public void TryBuyHero()
@@ -96,13 +95,13 @@ public class HeroSelectionManager : MonoBehaviour
 
         if (!_moneyManager.TryPurchase(price)) return;
         
-        _heroesPull[_currentHeroIndex].MarkHeroPurchased();
+        _heroesPool[_currentHeroIndex].MarkHeroPurchased();
         HeroPurchased?.Invoke();
     }
     
     public bool IsHeroAlreadyPurchased()
     {
-        var isBought = _heroesPull[_currentHeroIndex].IsPurchased;
+        var isBought = _heroesPool[_currentHeroIndex].IsPurchased;
         return isBought;
     }
     

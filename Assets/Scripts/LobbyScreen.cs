@@ -17,7 +17,7 @@ public class LobbyScreen : MonoBehaviour
     {
         _heroSelectionManager = heroSelectionManager;
         _uiScreenChanger = uiScreenChanger;
-        _uiScreenChanger.SwitchToHeroSelectionScreen += _heroSelectionManager.FillHeroSelectionScreen;
+        _uiScreenChanger.SwitchToHeroSelectionScreen += _heroSelectionManager.ShowHero;
         _heroSelectionManager.HeroSelected += UpdateHeroInformation;
     }
     
@@ -28,7 +28,7 @@ public class LobbyScreen : MonoBehaviour
 
     private void OnDestroy()
     {
-        _uiScreenChanger.SwitchToHeroSelectionScreen -= _heroSelectionManager.FillHeroSelectionScreen;
+        _uiScreenChanger.SwitchToHeroSelectionScreen -= _heroSelectionManager.ShowHero;
         _heroSelectionManager.HeroSelected -= UpdateHeroInformation;
         _heroSelectionButton.onClick.RemoveAllListeners();
     }
