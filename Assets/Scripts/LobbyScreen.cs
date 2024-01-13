@@ -25,14 +25,7 @@ public class LobbyScreen : MonoBehaviour
     {
         _heroSelectionButton.onClick.AddListener(ChangeScreenToHeroSelection);
     }
-
-    private void OnDestroy()
-    {
-        _uiScreenChanger.SwitchToHeroSelectionScreen -= _heroSelectionManager.ShowHero;
-        _heroSelectionManager.HeroSelected -= UpdateHeroInformation;
-        _heroSelectionButton.onClick.RemoveAllListeners();
-    }
-
+    
     private void UpdateHeroInformation(Hero hero)
     {
         if (hero == null || !hero.IsPurchased)
@@ -51,5 +44,12 @@ public class LobbyScreen : MonoBehaviour
     private void ChangeScreenToHeroSelection()
     {
         _uiScreenChanger.ChangeToHeroSelectionScreen();
+    }
+    
+    private void OnDestroy()
+    {
+        _uiScreenChanger.SwitchToHeroSelectionScreen -= _heroSelectionManager.ShowHero;
+        _heroSelectionManager.HeroSelected -= UpdateHeroInformation;
+        _heroSelectionButton.onClick.RemoveAllListeners();
     }
 }

@@ -43,20 +43,21 @@ public class HeroSelectionScreen : MonoBehaviour
         
         UpdateButtonsForByu();
     }
-
-    private void PushReturnButton()
-    {
-        ReturnButtonPushed?.Invoke();
-
-        if (_heroSelectionManager.LastSelectedHero != null)
-        {
-            _heroSelectionManager.HandOverSelectedHero();
-            return;
-        }
-        
-        _heroSelectionManager.CurrentHero.gameObject.SetActive(false);
-    }
     
+    private void UpdateHeroCharacteristics(Hero hero)
+    {
+        _heroParametersView.Name.text = hero.HeroSettings.Name;
+        _heroParametersView.Description.text = hero.HeroSettings.Description;
+        _heroParametersView.ClassIcon.sprite = hero.HeroSettings.HeroClassIcon;
+        _heroParametersView.LevelCounter.text = hero.HeroSettings.Level.ToString();
+        _heroParametersView.ExperienceCounter.value = hero.HeroSettings.Experience;
+        _heroParametersView.Price.text = hero.HeroSettings.Price.ToString();
+        _heroParametersView.Health.value = hero.HeroSettings.Health;
+        _heroParametersView.Attack.value = hero.HeroSettings.Attack;
+        _heroParametersView.Defence.value = hero.HeroSettings.Defence;
+        _heroParametersView.Speed.value = hero.HeroSettings.Speed;
+    }
+
     private void UpdateButtonsForSelect()
     {
         _buyButton.interactable = false;
@@ -71,18 +72,17 @@ public class HeroSelectionScreen : MonoBehaviour
         _selectButton.interactable = false;
     }
     
-    private void UpdateHeroCharacteristics(Hero hero)
+    private void PushReturnButton()
     {
-        _heroParametersView.Name.text = hero.HeroSettings.Name;
-        _heroParametersView.Description.text = hero.HeroSettings.Description;
-        _heroParametersView.ClassIcon.sprite = hero.HeroSettings.HeroClassIcon;
-        _heroParametersView.LevelCounter.text = hero.HeroSettings.Level.ToString();
-        _heroParametersView.ExperienceCounter.value = hero.HeroSettings.Experience;
-        _heroParametersView.Price.text = hero.HeroSettings.Price.ToString();
-        _heroParametersView.Health.value = hero.HeroSettings.Health;
-        _heroParametersView.Attack.value = hero.HeroSettings.Attack;
-        _heroParametersView.Defence.value = hero.HeroSettings.Defence;
-        _heroParametersView.Speed.value = hero.HeroSettings.Speed;
+        ReturnButtonPushed?.Invoke();
+
+        if (_heroSelectionManager.LastSelectedHero != null)
+        {
+            _heroSelectionManager.HandOverSelectedHero();
+            return;
+        }
+        
+        _heroSelectionManager.CurrentHero.gameObject.SetActive(false);
     }
     
     private void OnDestroy()

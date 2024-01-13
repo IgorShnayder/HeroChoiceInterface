@@ -48,47 +48,6 @@ public class HeroSelectionManager : MonoBehaviour
         }
     }
     
-    private void ShowHeroForFirstTime()
-    {
-        InstantiateHero(0);
-            
-        CurrentHero.gameObject.SetActive(true);
-        HeroSwitched?.Invoke(CurrentHero); 
-        ShowBuyButton?.Invoke();
-    }
-    
-    private void SwitchHero(int index)
-    {
-        if (CurrentHero != null)
-        {
-            CurrentHero.gameObject.SetActive(false);
-        }
-
-        TryActivateHero(index);
-    }
-    
-    private void TryActivateHero(int index)
-    {
-        if (_heroesPool[index] != null && _heroesPool[index].IsHeroOnScene)
-        {
-            CurrentHero = _heroesPool[index];
-        }
-        else
-        {
-            InstantiateHero(index);
-        }
-        
-        CurrentHero.gameObject.SetActive(true);
-        HeroSwitched?.Invoke(CurrentHero);
-    }
-
-    private void InstantiateHero(int index)
-    {
-        CurrentHero = Instantiate(_heroesPrefabManager.Heroes[index], _heroPosition);
-        _heroesPool[index] = CurrentHero;
-        _heroesPool[index].MarkHeroOnScene();
-    }
-    
     public void TryBuyHero()
     {
         var price = CurrentHero.HeroSettings.Price;
@@ -146,5 +105,46 @@ public class HeroSelectionManager : MonoBehaviour
         CurrentHero.gameObject.SetActive(true);
         
         HeroSelected?.Invoke(CurrentHero);
+    }
+    
+    private void ShowHeroForFirstTime()
+    {
+        InstantiateHero(0);
+            
+        CurrentHero.gameObject.SetActive(true);
+        HeroSwitched?.Invoke(CurrentHero); 
+        ShowBuyButton?.Invoke();
+    }
+    
+    private void SwitchHero(int index)
+    {
+        if (CurrentHero != null)
+        {
+            CurrentHero.gameObject.SetActive(false);
+        }
+
+        TryActivateHero(index);
+    }
+    
+    private void TryActivateHero(int index)
+    {
+        if (_heroesPool[index] != null && _heroesPool[index].IsHeroOnScene)
+        {
+            CurrentHero = _heroesPool[index];
+        }
+        else
+        {
+            InstantiateHero(index);
+        }
+        
+        CurrentHero.gameObject.SetActive(true);
+        HeroSwitched?.Invoke(CurrentHero);
+    }
+
+    private void InstantiateHero(int index)
+    {
+        CurrentHero = Instantiate(_heroesPrefabManager.Heroes[index], _heroPosition);
+        _heroesPool[index] = CurrentHero;
+        _heroesPool[index].MarkHeroOnScene();
     }
 }
